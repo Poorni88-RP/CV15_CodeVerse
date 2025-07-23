@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Whack-a-Mole</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 10px;
+      margin-top: 30px;
+    }
+    .square {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border: 2px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      cursor: pointer;
+    }
+    #score {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Whack-a-Mole</h1>
+  <p>Score: <span id="score">0</span></p>
+  <div class="grid">
+    <div class="square" id="sq1"></div>
+    <div class="square" id="sq2"></div>
+    <div class="square" id="sq3"></div>
+    <div class="square" id="sq4"></div>
+    <div class="square" id="sq5"></div>
+    <div class="square" id="sq6"></div>
+    <div class="square" id="sq7"></div>
+    <div class="square" id="sq8"></div>
+    <div class="square" id="sq9"></div>
+  </div>
+
+  <script>
+    let score = 0;
+    let moleSquare;
+
+    function randomSquare() {
+      document.querySelectorAll('.square').forEach(square => {
+        square.textContent = '';
+      });
+      const randomIndex = Math.floor(Math.random() * 9);
+      moleSquare = document.querySelectorAll('.square')[randomIndex];
+      moleSquare.textContent = '🐹';
+    }
+
+    document.querySelectorAll('.square').forEach(square => {
+      square.addEventListener('click', () => {
+        if (square === moleSquare) {
+          score++;
+          document.getElementById('score').textContent = score;
+        }
+      });
+    });
+
+    setInterval(randomSquare, 800);
+  </script>
+</body>
+</html>
